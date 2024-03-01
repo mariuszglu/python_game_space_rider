@@ -11,6 +11,8 @@ BG = pygame.transform.scale(pygame.image.load("bg.png"),(WIDTH, HEIGHT))
 
 PLAYER_WIDTH = 40
 PLAYER_HEIGHT = 60
+# velocity, speed player
+PLAYER_VEL = 2
 
 def draw(player):
 #blit spacial method when you want to put it on the screen
@@ -32,6 +34,16 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
                 break
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT] and player.x - PLAYER_VEL >= 0:
+            player.x -= PLAYER_VEL
+        if keys[pygame.K_RIGHT] and player.x + PLAYER_VEL + PLAYER_WIDTH <= WIDTH:
+            player.x += PLAYER_VEL
+        if keys[pygame.K_DOWN] and player.y + PLAYER_VEL + PLAYER_HEIGHT <= HEIGHT:
+            player.y += PLAYER_VEL
+        if keys[pygame.K_UP] and player.y - PLAYER_VEL >= 0:
+            player.y -= PLAYER_VEL
+
         draw(player)
 
     pygame.quit()

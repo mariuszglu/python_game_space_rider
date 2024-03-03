@@ -18,11 +18,14 @@ PLAYER_HEIGHT = 60
 PLAYER_VEL = 5
 STAR_WIDTH = 10
 STAR_HEIGHT = 20
-STAR_VEL = 10
+STAR_VEL = 3
 
 FONT = pygame.font.SysFont("comicsans", 30)
 
-def draw(player, elapsed_time):
+
+
+
+def draw(player, elapsed_time, stars):
 #blit spacial method when you want to put it on the screen
     WIN.blit(BG,(0,0))
 
@@ -32,6 +35,11 @@ def draw(player, elapsed_time):
     WIN.blit(time_text,(10,10))
 #drawing red rectangle (player) on WIN window
     pygame.draw.rect(WIN,"red",player)
+
+    for star in stars:
+        pygame.draw.rect(WIN,"White",star)
+
+
 #update usign every time when you want put changes on the screen
     pygame.display.update()
 
@@ -53,6 +61,8 @@ def main():
 
     stars = []
     hit = False
+
+
 
     while run:
 
@@ -91,7 +101,14 @@ def main():
                 hit = True
                 break
 
-        draw(player, elapsed_time)
+        if hit:
+            lost_text = FONT.render("You Lost!", 1, "white")
+            WIN.blit(lost_text, (WIDTH/2 - lost_text.get_width()/2, HEIGHT/2 - lost_text.get_height()/2))   
+            pygame.display.update()
+            pygame.time.delay(5000)
+            break
+
+        draw(player, elapsed_time, stars)
 
     pygame.quit()
 
